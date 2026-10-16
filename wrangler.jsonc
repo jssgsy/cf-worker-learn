@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Worker 名字，部署后地址为 https://cf-worker-learn.<你的子域>.workers.dev
+  "name": "cf-worker-learn",
+
+  // Worker 入口：所有"没被静态资源接住"的请求都会进这个文件
+  "main": "src/index.js",
+
+  // 兼容性日期：锁定 Worker 运行时的行为版本
+  "compatibility_date": "2026-10-01",
+
+  // Workers Static Assets：public/ 目录下的文件由 Cloudflare 静态资源层直接返回。
+  // 匹配规则（默认，未设置 run_worker_first 时）：
+  //   url 能对应到 public/ 里的文件 → 静态资源层返回，不进 Worker
+  //   匹配不到（例如 /api/todos）   → 进 Worker (src/index.js)
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+
+  // 结构化日志：配合 `wrangler tail` / dashboard 查看
+  "observability": {
+    "enabled": true
+  }
+}

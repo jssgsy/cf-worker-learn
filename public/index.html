@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Worker + Vue 待办示例</title>
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Vue 3 的 ESM 构建，免打包直接用（上线也一样，不需要 node 构建步骤） -->
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 模板直接写在 HTML 里，由 /app.js 中的 createApp(...).mount("#app") 接管 -->
+    <div id="app" v-cloak>
+      <main>
+        <h1>☁️ Worker 待办清单</h1>
+        <p class="sub">静态页面来自 <code>public/</code>，数据接口来自 Worker（<code>/api/todos</code>）</p>
+
+        <form @submit.prevent="add">
+          <input v-model="newTitle" placeholder="今天想完成什么？" autocomplete="off" />
+          <button type="submit" :disabled="pending || !newTitle.trim()">添加</button>
+        </form>
+
+        <p v-if="loading" class="hint">加载中…</p>
+        <p v-else-if="error" class="error">请求失败：{{ error }}</p>
+        <p v-else-if="!todos.length" class="hint">还没有待办，加一条吧 ✨</p>
+
+        <ul class="list">
+          <li v-for="todo in todos" :key="todo.id" :class="{ done: todo.done }">
+            <label>
+              <input type="checkbox" :checked="todo.done" @change="toggle(todo)" />
+              <span>{{ todo.title }}</span>
+            </label>
+            <button class="danger" @click="remove(todo)">删除</button>
+          </li>
+        </ul>
+
+        <footer>
+          剩余 {{ remaining }} / {{ todos.length }} 项 ·
+          <a href="/api/todos" target="_blank" rel="noreferrer">查看原始 JSON</a>
+        </footer>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

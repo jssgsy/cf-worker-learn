@@ -1,0 +1,116 @@
+:root {
+  color-scheme: light dark;
+  --border: rgba(128, 128, 128, 0.35);
+  font-family: system-ui, -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: start center;
+  padding: 6vh 1rem;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+main {
+  width: min(560px, 100%);
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.2rem;
+}
+
+.sub {
+  margin-top: 0;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+code {
+  background: rgba(128, 128, 128, 0.16);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.2rem 0;
+}
+
+input[type="text"],
+form input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: transparent;
+  color: inherit;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.14);
+  color: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.danger:hover {
+  background: rgba(220, 60, 60, 0.18);
+  border-color: rgba(220, 60, 60, 0.5);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.list label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.list li.done span {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.hint {
+  opacity: 0.6;
+}
+
+.error {
+  color: #e5484d;
+}
+
+footer {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
